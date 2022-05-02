@@ -1,0 +1,32 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "process": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
+    "indent": ["error", 2],
+    "prefer-spread": "error",
+    "semi": ["error", "always"],
+    "no-class-assign": "off",
+    "no-case-declarations": "off",
+    "no-unused-expressions": 0,
+    "quotes": ["error", "double"],
+    "require-await": "error",
+    "linebreak-style": ["error", "unix"],
+    "eqeqeq": "error",
+    "keyword-spacing": 1,
+    "object-curly-spacing": ["warn", "always", { "objectsInObjects": true }],
+    "require-atomic-updates": "off",
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "max-len": ["error", { "code": 120 }],
+    "no-unused-vars": "off"
+  }
+}
