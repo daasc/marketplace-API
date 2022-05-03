@@ -1,5 +1,5 @@
 const express = require('express');
-
+const productRouter = require('./product');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -9,5 +9,7 @@ router.get('/', async (req, res) => {
     res.status(400).send('error!')
   }
 });
+
+router.use('/product', productRouter);
 
 module.exports = router;
