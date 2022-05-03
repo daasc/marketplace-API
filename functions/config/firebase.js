@@ -8,8 +8,5 @@ initializeApp({
 })
 
 const db = getFirestore();
-// [END initialize_app]
-await db.terminate();
-// Destroy connection so we can run other tests that initialize the default app.
-return db;
+
 module.exports = db;
