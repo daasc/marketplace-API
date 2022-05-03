@@ -1,6 +1,15 @@
-require('dotenv/config');
-const { initializeApp } = require("firebase/app");
-const serviceAccount = require('./firebase-key');
-const app = initializeApp(serviceAccount);
+const { getFirestore } = require('firebase-admin/firestore');
 
-module.exports = app;
+const { initializeApp, applicationDefault } = require('firebase-admin/app');
+
+initializeApp({
+  credential: applicationDefault(),
+  databaseURL: "https://teste-72112.firebaseio.com/"
+})
+
+const db = getFirestore();
+// [END initialize_app]
+await db.terminate();
+// Destroy connection so we can run other tests that initialize the default app.
+return db;
+module.exports = db;
