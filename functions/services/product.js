@@ -33,8 +33,12 @@ class ServiceProduct {
     }
   }
 
-  async update() {
-
+  async update({id, product}) {
+    try {
+      await this._fireStore.doc(id).update(product);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async delete() {
