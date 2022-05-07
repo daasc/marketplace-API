@@ -8,7 +8,7 @@ class ServiceProduct {
 
   async get() {
     try {
-      const products  = [];
+      const products = [];
       const result = await this._fireStore.get();
       result.forEach(doc => {
         products.push(doc.data())
@@ -23,8 +23,14 @@ class ServiceProduct {
 
   }
 
-  async store() {
-
+  async store({ name, qtd, category}) {
+    try {
+      await this._fireStore.add({
+        name, qtd, category,
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async update() {
