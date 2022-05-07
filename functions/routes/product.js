@@ -13,4 +13,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const { body: product } = req;
+    await serviceProduct.store(product);
+    res.status(200).send('created with success!');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+})
+
 module.exports = router;
