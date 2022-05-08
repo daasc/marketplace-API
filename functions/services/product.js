@@ -49,8 +49,14 @@ class ServiceProduct {
     }
   }
 
-  async delete() {
-
+  async delete(id) {
+    try {
+      await this.getId(id)
+      await this._fireStore.doc(id).delete();
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
 }
