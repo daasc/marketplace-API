@@ -26,8 +26,18 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { body: product, params: { id } } = req;
-    await serviceProduct.update({id, product});
+    await serviceProduct.update({ id, product });
     res.status(200).send('update with success!');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { params: { id } } = req;
+    const product = await serviceProduct.getId(id);
+    res.status(200).json(product);
   } catch (error) {
     res.status(400).send(error);
   }

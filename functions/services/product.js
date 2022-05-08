@@ -20,7 +20,15 @@ class ServiceProduct {
   }
 
   async getId(id) {
-
+    try {
+      const product = await this._fireStore.doc(id).get();
+      if (!product.data()) {
+        throw 'product not found!';
+      }
+      return product.data();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async store({ name, qtd, category}) {
