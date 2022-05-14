@@ -1,6 +1,6 @@
 const { Router } = require('express');
-// const fireStore = require('../config/firebase');
 const ServiceProduct = require('../services/product');
+const { validationResult } = require('express-validation')
 const serviceProduct = new ServiceProduct();
 const router = Router();
 
@@ -16,6 +16,11 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { body: product } = req;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(422).json({ errors: errors.array() });
+      return;
+    }
     await serviceProduct.store(product);
     res.status(200).send('created with success!');
   } catch (error) {
@@ -43,13 +48,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res)   => {
+router.delete('/:id', async (req, res) => {
   try {
     const { params: { id } } = req;
     await serviceProduct.delete(id);
     res.status(200).send('product deleted with success!');
   } catch (error) {
-    console.log('router => error: ',error)
+    console.log('router => error: ', error)
     res.status(400).send(error);
   }
 })
