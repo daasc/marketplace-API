@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const ServiceProduct = require('../services/product');
-const { validationResult } = require('express-validation')
+const { validationRules, validate } = require('../validation/product')
 const serviceProduct = new ServiceProduct();
 const router = Router();
 
@@ -13,14 +13,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validationRules(), validate, async (req, res) => {
   try {
     const { body: product } = req;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(422).json({ errors: errors.array() });
-      return;
-    }
     await serviceProduct.store(product);
     res.status(200).send('created with success!');
   } catch (error) {
