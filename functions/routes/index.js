@@ -1,5 +1,6 @@
 const express = require('express');
 const productRouter = require('./product');
+const categoryRouter = require('./category');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -11,5 +12,6 @@ router.get('/', async (req, res) => {
 });
 
 router.use('/product', productRouter);
+router.use('/category', categoryRouter);
 
 module.exports = router;
