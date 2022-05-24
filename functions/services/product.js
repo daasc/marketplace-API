@@ -31,11 +31,9 @@ class ServiceProduct {
     }
   }
 
-  async store({ name, qtd, category}) {
+  async store(product) {
     try {
-      await this._fireStore.add({
-        name, qtd, category,
-      });
+      await this._fireStore.add(product);
     } catch (error) {
       throw error;
     }
