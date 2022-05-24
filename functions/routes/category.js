@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const ServiceCategory = require('../services/category.js');
 const serviceCategory = new ServiceCategory();
+const { validate }  = require('../middleware/validation.js');
+const { validationRules } = require('../validation/category');
+
 const router = Router();
 
 
@@ -13,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validationRules(), validate, async (req, res) => {
   try {
     const { body: category } = req;
     await serviceCategory.store(category);
