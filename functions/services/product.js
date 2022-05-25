@@ -11,7 +11,7 @@ class ServiceProduct {
       const products = [];
       const result = await this._fireStore.get();
       result.forEach(doc => {
-        products.push(doc.data())
+        products.push({ ...doc.data(), id: doc.id })
       });
       return products;
     } catch (error) {
