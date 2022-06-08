@@ -1,6 +1,9 @@
 const { Router } = require('express');
 const ServiceCoupon = require('../services/coupon');
 const serviceCoupon = new ServiceCoupon();
+const { validate } = require('../middleware/validation.js');
+const { validationRules } = require('../validation/coupon')
+
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -22,17 +25,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validationRules(), validate, async (req, res) => {
   try {
     const { body: coupon } = req;
-    await serviceCoupon.store(coupon);
+    // await serviceCoupon.store(coupon);
     res.status(200).send('created with success!');
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validationRules(), validate, async (req, res) => {
   try {
     const { params: { id }, body: coupon } = req;
     console.log(id, coupon);
