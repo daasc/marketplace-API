@@ -38,6 +38,7 @@ class ServiceCoupon {
   }
   async update(id, newCoupon) {
     try {
+      console.log(id);
       await this._fireStore.doc(id).update(newCoupon);
     } catch (error) {
       throw error;

@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { params: { id } } = req;
-    const coupon = serviceCoupon.getId(id);
+    const coupon = await serviceCoupon.getId(id);
     res.status(200).json(coupon);
   } catch (error) {
     res.status(400).send(error);
@@ -34,7 +34,8 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const { params: id, body: coupon } = req;
+    const { params: { id }, body: coupon } = req;
+    console.log(id, coupon);
     await serviceCoupon.update(id, coupon);
     res.status(200).send('coupon updated with success!');
   } catch (error) {
@@ -44,10 +45,12 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const { params: id } = req;
+    const { params: { id } } = req;
     await serviceCoupon.remove(id);
     res.status(200).send('coupon deleted with success!');
   } catch (error) {
     res.status(400).send(error);
   }
 });
+
+module.exports = router;
