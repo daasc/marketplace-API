@@ -1,11 +1,6 @@
 const { body } = require('express-validator');
+const { validationNumeric } = require('../middleware/validation.js');
 
-const validationNumeric = (value, input) => {
-  if (typeof value === 'string') {
-    throw new Error(`Campo ${input} seu valor deve ser numérico!`)
-  }
-  return true
-}
 
 const validationRules = () => {
   return [

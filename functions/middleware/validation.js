@@ -13,4 +13,11 @@ const validate = (req, res, next) => {
   })
 }
 
-module.exports = { validate };
+const validationNumeric = (value, input) => {
+  if (typeof value === 'string') {
+    throw new Error(`Campo ${input} seu valor deve ser numérico!`)
+  }
+  return true
+}
+
+module.exports = { validate, validationNumeric };
