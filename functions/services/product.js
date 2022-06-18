@@ -1,9 +1,9 @@
-const fireStore = require('../config/firebase');
+const { db } = require('../config/firebase');
 
 class ServiceProduct {
   constructor() {
     this._collection = 'product'
-    this._fireStore = fireStore.collection('product');
+    this._fireStore = db.collection('product');
   }
 
   async get() {

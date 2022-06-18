@@ -1,9 +1,9 @@
-const fireStore = require('../config/firebase');
+const { db } = require('../config/firebase');
 
 class ServiceCategory {
   constructor() {
     this._collection = 'category'
-    this._fireStore = fireStore.collection(this._collection);
+    this._fireStore = db.collection(this._collection);
   }
 
   async get() {
@@ -41,7 +41,7 @@ class ServiceCategory {
     }
   }
 
-  async update({id, newProduct}) {
+  async update({ id, newProduct }) {
     try {
       await this._fireStore.doc(id).update(newProduct);
     } catch (error) {

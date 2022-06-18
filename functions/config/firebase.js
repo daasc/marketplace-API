@@ -1,4 +1,4 @@
-const { getFirestore } = require('firebase-admin/firestore');
+const { auth, firestore } = require('firebase-admin');
 
 const { initializeApp, applicationDefault } = require('firebase-admin/app');
 
@@ -7,6 +7,6 @@ initializeApp({
   databaseURL: "https://teste-72112.firebaseio.com/"
 })
 
-const db = getFirestore();
+const db = new firestore.Firestore();
 
-module.exports = db;
+module.exports = { db, auth: auth() };
