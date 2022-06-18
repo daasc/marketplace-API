@@ -42,6 +42,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+router.put('/password/:id', async (req, res) => {
+  try {
+    const { params: { id }, body: newPassword } = req;
+    await serviceUser.updatePassword(id, newPassword);
+    res.status(200).send('password updated with success!');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 router.delete('/:id', async (req, res) => {
   try {
     const { params: { id } } = req;
