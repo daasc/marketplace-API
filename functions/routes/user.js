@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const ServiceUser = require('../services/user.js');
+const { validate } = require('../middleware/validation.js');
+const { validationRules } = require('../validation/user');
 const serviceUser = new ServiceUser();
 const router = Router();
 
@@ -22,7 +24,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validationRules({}), validate, async (req, res) => {
   try {
     const { body: user } = req;
     await serviceUser.store(user);
@@ -32,7 +34,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validationRules({ validateUpdate: true }), validate, async (req, res) => {
   try {
     const { params: { id }, body: newUser } = req;
     await serviceUser.update(id, newUser);
@@ -42,7 +44,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.put('/password/:id', async (req, res) => {
+router.put('/password/:id', validationRules({ validatePassword: true }), validate, async (req, res) => {
   try {
     const { params: { id }, body: newPassword } = req;
     await serviceUser.updatePassword(id, newPassword);
