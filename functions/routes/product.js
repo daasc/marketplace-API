@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const ServiceProduct = require('../services/product');
 const { validate }  = require('../middleware/validation.js');
-const { validationRules } = require('../validation/product')
+const { validationRules } = require('../validation/product');
 const serviceProduct = new ServiceProduct();
 const router = Router();
 
