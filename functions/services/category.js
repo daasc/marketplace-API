@@ -1,8 +1,8 @@
-const { db } = require('../config/firebase');
+const { db } = require("../config/firebase");
 
 class ServiceCategory {
   constructor() {
-    this._collection = 'category'
+    this._collection = "category";
     this._fireStore = db.collection(this._collection);
   }
 
@@ -11,12 +11,11 @@ class ServiceCategory {
       const categories = [];
       const response = await this._fireStore.get();
       response.forEach(doc => {
-        categories.push({ ...doc.data(), id: doc.id })
+        categories.push({ ...doc.data(), id: doc.id });
       });
 
       return categories;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -25,7 +24,7 @@ class ServiceCategory {
     try {
       const category = await this._fireStore.doc(id).get();
       if (!category.data()) {
-        throw 'category not found!';
+        throw "category not found!";
       }
       return category.data();
     } catch (error) {
@@ -50,10 +49,9 @@ class ServiceCategory {
   }
   async delete(id) {
     try {
-      await this.getId(id)
+      await this.getId(id);
       await this._fireStore.doc(id).delete();
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

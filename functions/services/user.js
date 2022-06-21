@@ -1,7 +1,7 @@
-const { db, auth } = require('../config/firebase');
+const { db, auth } = require("../config/firebase");
 class ServiceUser {
   constructor() {
-    this._collection = 'user'
+    this._collection = "user";
     this._fireStore = db.collection(this._collection);
     this.auth = auth;
   }
@@ -22,12 +22,11 @@ class ServiceUser {
       const users = [];
       const response = await this._fireStore.get();
       response.forEach(doc => {
-        users.push({ ...doc.data(), id: doc.id })
+        users.push({ ...doc.data(), id: doc.id });
       });
 
       return users;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -36,7 +35,7 @@ class ServiceUser {
     try {
       const user = await this._fireStore.doc(id).get();
       if (!user.data()) {
-        throw 'user not found!';
+        throw "user not found!";
       }
       return user.data();
     } catch (error) {
@@ -46,19 +45,18 @@ class ServiceUser {
 
   async delete(id) {
     try {
-      await this.getId(id)
+      await this.getId(id);
       await this._fireStore.doc(id).delete();
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
 
   async update(id, newUser) {
     try {
-      await this.getId(id)
-      const { email, phoneNumber, displayName } = newUser
-      await this.auth.updateUser(id, { email, phoneNumber, displayName })
+      await this.getId(id);
+      const { email, phoneNumber, displayName } = newUser;
+      await this.auth.updateUser(id, { email, phoneNumber, displayName });
       await this._fireStore.doc(id).update(newUser);
     } catch (error) {
       throw error;

@@ -1,9 +1,9 @@
-const { db } = require('../config/firebase');
+const { db } = require("../config/firebase");
 
 class ServiceProduct {
   constructor() {
-    this._collection = 'product'
-    this._fireStore = db.collection('product');
+    this._collection = "product";
+    this._fireStore = db.collection("product");
   }
 
   async get() {
@@ -11,7 +11,7 @@ class ServiceProduct {
       const products = [];
       const result = await this._fireStore.get();
       result.forEach(doc => {
-        products.push({ ...doc.data(), id: doc.id })
+        products.push({ ...doc.data(), id: doc.id });
       });
       return products;
     } catch (error) {
@@ -23,7 +23,7 @@ class ServiceProduct {
     try {
       const product = await this._fireStore.doc(id).get();
       if (!product.data()) {
-        throw 'product not found!';
+        throw "product not found!";
       }
       return product.data();
     } catch (error) {
@@ -39,7 +39,7 @@ class ServiceProduct {
     }
   }
 
-  async update({id, product}) {
+  async update({ id, product }) {
     try {
       await this._fireStore.doc(id).update(product);
     } catch (error) {
@@ -49,10 +49,9 @@ class ServiceProduct {
 
   async delete(id) {
     try {
-      await this.getId(id)
+      await this.getId(id);
       await this._fireStore.doc(id).delete();
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
