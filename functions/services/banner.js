@@ -41,7 +41,9 @@ class ServiceBanner {
     }
   }
   async update(id, newBanner){
+    console.log(newBanner)
     try{
+
       await this._fireStore.doc(id).update(newBanner);
     }catch(error){
       console.log(error);

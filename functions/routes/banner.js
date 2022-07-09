@@ -7,13 +7,13 @@ const router = Router();
 
 router.get('/', async (req,res)=>{
   try{
-    const banner = await serviceBanner().get();
+    const banner = await serviceBanner.get()
     res.status(200).json(banner)
   }catch(error){
     res.status(400).send(error)
   }
 })
-router.post('/', validationRules(), validate(), async (req, res)=>{
+router.post('/', validationRules(), validate, async (req, res)=>{
   try {
     const {body: banner} = req;
     await serviceBanner.store(banner);
@@ -34,7 +34,8 @@ router.get('/:id', async (req,res)=>{
 router.put('/:id', async (req, res)=>{
   try {
     const {params:{id}, body:{newBanner}} = req;
-    await serviceBanner.update({id,newBanner});
+    console.log(id, newBanner)
+    await serviceBanner.update(id,newBanner);
     res.status(200).json({message:'Banner updated with success!!'});
   } catch (error) {
     res.status(400).send(error);

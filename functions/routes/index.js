@@ -17,5 +17,6 @@ router.use('/product', productRouter);
 router.use('/category', categoryRouter);
 router.use('/coupon', couponRouter);
 router.use('/router', bannerRouter);
+router.use('/banner',bannerRouter);
 
 module.exports = router;
